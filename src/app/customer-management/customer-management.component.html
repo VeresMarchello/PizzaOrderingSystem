@@ -1,0 +1,26 @@
+<h2 class="text-center my-3">Customer Details</h2>
+
+<div class="justify-content-center container">
+    <div>
+        <form [formGroup]="registrationForm" class="form">
+            <div class="form-group">
+                <label>First Name</label>
+                <input type="text" id="firstname" placeholder="Enter First Name" class="form-control" formControlName="firstName" />
+            </div>
+            <div class="form-group">
+                <label>Last Name</label>
+                <input type="text" id="lastname" placeholder="Enter Last Name" class="form-control" formControlName="lastName" />
+            </div>
+            <div class="form-group">
+                <label>Phone</label>
+                <input type="text" id="phone" placeholder="30 123 456" class="form-control" formControlName="phone" />
+            </div>
+            <div class="form-group" *ngIf="showAddress">
+                <label>Address</label>
+                <input type="text" id="address" placeholder="7654 Kukutyin, Fo utca 27" class="form-control" formControlName="address" />
+            </div>
+
+            <button class="btn my-5 btn-block btn-success" (click)="saveCustomer()" [disabled]="registrationForm.invalid">Next</button>
+        </form>
+    </div>
+</div>

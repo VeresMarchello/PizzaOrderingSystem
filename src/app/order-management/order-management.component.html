@@ -1,0 +1,99 @@
+<h2 class="text-center my-3">Order Details</h2>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label>Name</label>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text"><i class="bi bi-person-fill"></i></div>
+                    </div>
+                    <input [value]="customer.firstName + ' ' + customer.lastName" type="text" class="form-control" readonly />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Phone</label>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text"><i class="bi bi-telephone-fill"></i></div>
+                    </div>
+                    <input [value]="customer.phone" type="text" class="form-control" readonly />
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Address</label>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text"><i class="bi bi-house-fill"></i></div>
+                    </div>
+                    <input [value]="customer.address" type="text" class="form-control" readonly />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="getFoods().length > 0">
+        <div class="table-responsive text-center">
+            <caption>Foods</caption>
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Size</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let food of getFoods(); let i = index">
+                        <td class="align-middle">{{ i + 1 }}</td>
+                        <td class="align-middle">{{ food.name | titlecase}}</td>
+                        <td class="align-middle">{{ food.size | titlecase}}</td>
+                        <td class="align-middle">{{ food.quantity }}</td>
+                        <td class="align-middle">{{ food.price * food.quantity }} HUF</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="row container">
+            <table class="table-sm container col-md-9 table table-bordered text-center">
+                <caption>Ovens</caption>
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">State</th>
+                        <th scope="col" [attr.colspan]="getMaxFoodCount()">Foods</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let oven of getOvens(); let i = index">
+                        <td class="align-middle">{{ i + 1 }}</td>
+                        <td *ngIf="oven.isFree"><i class="text-success bi bi-hourglass"></i></td>
+                        <td *ngIf="!oven.isFree"><i class="text-danger bi bi-hourglass-split"></i></td>
+                        <td *ngFor="let food of oven.foods">{{ food.type | titlecase }} ({{food.preparation_time}})</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="col-md-3">
+                <div *ngIf="getTotalPrice() < minimumDiscount" class="my-4 text-right font-weight-bold">Total: {{getTotalPrice()}} HUF
+                </div>
+                <div *ngIf="getTotalPrice() >= minimumDiscount" class="my-4 text-right">
+                    <div>Total: {{getTotalPrice()}} HUF</div>
+                    <div>Discount: {{discount}}%</div>
+                    <hr>
+                    <div class="font-weight-bold">Discount Price: {{getDiscountPrice()}} HUF</div>
+                </div>
+                <div class="text-right font-weight-bold">Total Time: {{totalTime}} Minutes</div>
+            </div>
+        </div>
+        <button (click)="saveOrder()" [disabled]="getCartSize() <= 0" class="my-5 btn btn-success btn-block">Save
+            Order <i class="bi bi-truck"></i></button>
+    </div>
+</div>

@@ -1,0 +1,19 @@
+{
+    "name": "backend",
+    "version": "0.0.1",
+    "description": "Backend.",
+    "devDependencies": {
+        "@types/node": "^8.10.66",
+        "ts-node": "3.3.0",
+        "typescript": "3.3.3333"
+    },
+    "dependencies": {
+        "cors": "^2.8.5",
+        "mysql": "^2.18.1",
+        "reflect-metadata": "^0.1.10",
+        "typeorm": "0.2.32"
+    },
+    "scripts": {
+        "start": "ts-node src/index.ts"
+    }
+}

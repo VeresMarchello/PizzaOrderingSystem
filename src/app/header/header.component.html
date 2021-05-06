@@ -1,0 +1,14 @@
+<nav class="navbar sticky-top navbar-expand navbar-dark bg-dark">
+    <div class="collapse navbar-collapse justify-content-start">
+        <div class="navbar-nav">
+            <a routerLink="/menu" routerLinkActive="active" class="nav-item nav-link">Menu</a>
+            <a routerLink="/cart" routerLinkActive="active" class="nav-item nav-link">Cart
+                <h6 *ngIf="getCartSize() > 0" class="badge badge-pill badge-primary">{{ getCartSize() }}</h6>
+            </a>
+            <a routerLink="/order-details" routerLinkActive="active" class="nav-item nav-link">Order Details</a>
+        </div>
+        <div class="collapse navbar-collapse justify-content-end">
+            <button (click)="cancel()" class="btn btn-outline-danger">Cancel</button>
+        </div>
+    </div>
+</nav>
